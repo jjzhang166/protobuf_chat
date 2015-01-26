@@ -1,0 +1,61 @@
+
+¯
+
+protocol.protochat"2
+LoginRequest
+username (
+password (	"
+LoginResponse
+ttl ("&
+Friend
+name (
+online ("3
+GetFriendsResponse
+friends (2.chat.Friend"4
+SendMessageRequest
+receiver (
+text (	"2
+FriendNotification
+name (
+online ("F
+MessageNotification
+sender (	
+text (	
+	timestamp (	"#
+WelcomeNotification
+text ("\
+Request!
+login (2.chat.LoginRequest.
+send_message (2.chat.SendMessageRequest"œ
+Response
+result (
+last_response (
+error_describe ("
+login (2.chat.LoginResponse-
+get_friends (2.chat.GetFriendsResponse"Œ
+Notification(
+friend (2.chat.FriendNotification&
+msg (2.chat.MessageNotification*
+welcome (2.chat.WelcomeNotification"¸
+Message
+msg_type (2	.chat.MSG
+sequence (
+
+session_id (
+request (2.chat.Request 
+response (2.chat.Response(
+notification (2.chat.Notification*É
+MSG
+Login_Request‘N
+Login_Response’N
+Logout_Request“N
+Logout_Response”N
+Keepalive_Request•N
+Keepalive_Response–N
+Get_Friends_Request—N
+Get_Friends_Response˜N
+Send_Message_Request™N
+Send_Message_ResponsešN
+Friend_Notification¡œ
+Message_Notification¢œ
+Welcome_Notification£œ
