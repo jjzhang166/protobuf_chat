@@ -34,8 +34,31 @@ enum MSG
 会为每个消息大类定义一个消息，例如请求消息全部包含在Request消息中，应答消息全部包含在Response消息中，通知消息全部包含在Notification消息中。
 
 对于应答消息，并非总是成功的，因此在应答消息中还会包含另外2个字段。一个用于描述应答是否成功，一个用于描述失败时的字符串信息。 对于有多个应答的消息来说，可能会包含是否为最后一个应答消息的标识。应答的序号（类似与网络数据包被分包以后，协议要合并时，需要知道分片在包中的具体位置）。
+```
+message Response
+{
+	required bool	result	=	1;
+	required bool	last_response	=	2;
+	optional bytes	error_describe	=	3;
+
+	optional LoginResponse	login	= 4;
+	optional GetFriendsResponse	get_friends	= 5;
+}
+```
 
 最后我定义一个大消息，把Request、Response、Notification全部封装在一起，让后在通信的时候都动大消息开始编解码。
+```
+message Message 
+{
+	required MSG		msg_type	=	1;
+	required fixed32	sequence	=	2;
+	optional fixed32	session_id	=	3;
 
+	optional Request	request		=	4;
+	optional Response	response	=	5;
+	optional Notification notification	=	6;
+}
+
+```
 
 
