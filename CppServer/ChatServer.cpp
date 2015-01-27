@@ -52,15 +52,15 @@ struct User
 	{
 	}
 
-	Buffer			inputBuffer;
-	Buffer			outputBuffer;
-	StreamSocket	socket;
-	std::string		userName;
-	int				sessionId;
+	Buffer			inputBuffer;    // received data buffer
+	Buffer			outputBuffer;   // sending data buffer
+	StreamSocket	socket;         // tcp socket related to the user 
+	std::string		userName;       
+	int				sessionId;      // connect session index with the server
 	bool			login;
 };
 
-static vector<User*>  s_users;
+static vector<User*>  s_users;  // all online users
 
 class ChatServiceHandler
 {
@@ -113,7 +113,7 @@ public:
 			// delete the disconnected-user connection
 			delete this;
 		}
-
+        
 		onBufferMessage();
 	}
 
