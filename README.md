@@ -4,7 +4,9 @@
 
 ### 1. 功能介绍 
 Protobuf_chat是一个简单的聊天程序，客户端使用C#，服务端有C++/C#两个版本，使用protobuf协议。
+
 C++部分引用了[poco](http://pocoproject.org/)的Net库。
+
 支持登录/注销，发送消息，心跳等基本功能。
 
 ### 2. protocol.proto解释
