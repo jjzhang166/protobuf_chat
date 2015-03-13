@@ -3,14 +3,17 @@
 ![Screenshot](Protobuf_chat.png)
 
 
-�ο�[�ҵ�Protobuf��Ϣ���ԭ��](http://my.oschina.net/cxh3905/blog/159122)���Լ��ṩ��[demo](http://my.oschina.net/cxh3905/blog/293000)
+参考[我的Protobuf消息设计原则](http://my.oschina.net/cxh3905/blog/159122)，以及提供的[demo](http://my.oschina.net/cxh3905/blog/293000)
 
-### 1. ���ܽ��� 
-Protobuf_chat��һ���򵥵�������򣬿ͻ���ʹ��C#�������ʹ��C++��ʹ��protobufЭ�顣
-֧�ֵ�¼/ע����������Ϣ�������Ȼ������ܡ�
+### 1. 功能介绍 
+Protobuf_chat是一个简单的聊天程序，客户端使用C#，服务端有C++/C#两个版本，使用protobuf协议。
 
-### 2. protocol.proto����
-ʹ�� protobuf ��enum������Ϣ�ı�ţ�Ҳ������Ϣ�����͡�
+C++部分引用了[poco](http://pocoproject.org/)的Net库。
+
+支持登录/注销，发送消息，心跳等基本功能。
+
+### 2. protocol.proto解释
+使用 protobuf 的enum定于消息的编号，也就是消息的类型。
 ```
 enum MSG
 {
@@ -32,11 +35,11 @@ enum MSG
 }
 ``` 
 
-��Ϊÿ��������Ϣ�����Ϣ����һ����Ӧ��protobuf message������Login_Request����һ����ӦLoginRequest��Ϣ��
+会为每个具有消息体的消息定义一个对应的protobuf message。例如Login_Request会有一个对应LoginRequest消息。
 
-��Ϊÿ����Ϣ���ඨ��һ����Ϣ������������Ϣȫ��������Request��Ϣ�У�Ӧ����Ϣȫ��������Response��Ϣ�У�֪ͨ��Ϣȫ��������Notification��Ϣ�С�
+会为每个消息大类定义一个消息，例如请求消息全部包含在Request消息中，应答消息全部包含在Response消息中，通知消息全部包含在Notification消息中。
 
-����Ӧ����Ϣ���������ǳɹ��ģ������Ӧ����Ϣ�л����������2���ֶΡ�һ����������Ӧ���Ƿ�ɹ���һ����������ʧ��ʱ���ַ�����Ϣ�� �����ж��Ӧ�����Ϣ��˵�����ܻ�����Ƿ�Ϊ���һ��Ӧ����Ϣ�ı�ʶ��Ӧ�����ţ��������������ݰ����ְ��Ժ�Э��Ҫ�ϲ�ʱ����Ҫ֪����Ƭ�ڰ��еľ���λ�ã���
+对于应答消息，并非总是成功的，因此在应答消息中还会包含另外2个字段。一个用于描述应答是否成功，一个用于描述失败时的字符串信息。 对于有多个应答的消息来说，可能会包含是否为最后一个应答消息的标识。应答的序号（类似与网络数据包被分包以后，协议要合并时，需要知道分片在包中的具体位置）。
 ```
 message Response
 {
@@ -49,7 +52,7 @@ message Response
 }
 ```
 
-����Ҷ���һ������Ϣ����Request��Response��Notificationȫ����װ��һ���ú���ͨ�ŵ�ʱ�򶼶�����Ϣ��ʼ����롣
+最后我定义一个大消息，把Request、Response、Notification全部封装在一起，让后在通信的时候都动大消息开始编解码。
 ```
 message Message 
 {
@@ -63,5 +66,3 @@ message Message
 }
 
 ```
-
-
