@@ -1,5 +1,8 @@
 #protobuf_chat
 
+![Screenshot](Protobuf_chat.png)
+
+
 参考[我的Protobuf消息设计原则](http://my.oschina.net/cxh3905/blog/159122)，以及提供的[demo](http://my.oschina.net/cxh3905/blog/293000)
 
 ### 1. 功能介绍 
